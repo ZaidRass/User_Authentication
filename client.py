@@ -1,6 +1,6 @@
 import socket
-
-SERVER_IP = '192.168.1.11'
+# Enter the desired IP address
+SERVER_IP = 'xxxxxxxx'
 SERVER_PORT = 5678
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
