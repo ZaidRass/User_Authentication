@@ -6,7 +6,8 @@ import os
 import pandas as pd
 import numpy as np
 
-SERVER_IP = '192.168.1.11'
+#Enter desired IP address
+SERVER_IP = 'XXXXXXX'
 SERVER_PORT = 5678
 
 def create_CSV_File():
@@ -45,26 +46,17 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         # If it doesn't exist, then create it
         if file_exists == False:
             create_CSV_File()    
-        
+            
+        # To check that the connection has worked
         conn.send(b'Hello World')
-        
-        
         
         # Receive the username,password and the message type from the client
         received_msg = conn.recv(1024).decode()
         message_type, username, password =received_msg.split(':')
 
-
-        
-        print(message_type)
-        print(username)
-        print(password)
-        
-        
-
-        # signing up
+        # Signing up
         if message_type == '2':
-            # Read the csv file
+            # Read the CSV file
             Login_Credentials = pd.read_csv('Login Credentials.csv')
         
         # check if the username already exists
@@ -81,7 +73,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 Write_credentials(username, hashed_password, salt)
                 s.send(b'You have successfully signed up')
         
-        # loging in
+        # Logging in
         if message_type == '1' :
             Login_Credentials = pd.read_csv('Login Credentials.csv')
 
@@ -98,7 +90,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 
                 comparable = SHA512(salt_password)
                 
-                # if it does then
+                # If the password matches then
                 if comparable == hashed_password:
                     s.send(b'You have successfully logged in')
                 else:
