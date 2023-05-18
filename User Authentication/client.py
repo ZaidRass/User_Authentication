@@ -1,6 +1,6 @@
 import socket
-
-SERVER_IP = '192.168.1.11'
+#Enter the desired IP address
+SERVER_IP = 'XXXXXXX'
 SERVER_PORT = 5678
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -10,20 +10,18 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
     #To let the user enter the message type
     message_type= input('Please enter your message type, 1 for Login and 2 for sign up: ')
-    #s.send(message_type.encode())
-
+    
     # Send the username
     username = input('Please enter your username: ')
-    #s.send(username.encode())
-
+    
     # Send the password
     password = input('Please enter your password: ')
-    #s.send(password.encode())
     
-    
+    # To send the message to the server
     Sent_msg = f"{message_type}:{username}:{password}"
     s.send(Sent_msg.encode())
-
+    
+    # Receive a reply from the server
     msg =s.recv(1024).decode()
     print(msg)
     
